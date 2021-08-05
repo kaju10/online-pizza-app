@@ -73,7 +73,7 @@ public class PizzaServiceTest {
 		Mockito.when(pizzaRepository.findAll())
 		.thenReturn(Stream.of(pizza).collect(Collectors.toList()));
 		
-		assertEquals(2,service.viewPizzaList().size());
+		assertEquals(1,service.viewPizzaList().size());
 	}
 	
 	@Test
