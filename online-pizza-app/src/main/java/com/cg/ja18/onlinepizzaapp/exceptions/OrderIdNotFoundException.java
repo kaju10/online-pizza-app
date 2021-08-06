@@ -1,7 +1,7 @@
 package com.cg.ja18.onlinepizzaapp.exceptions;
 
-public class OrderIdNotFoundException extends Exception{
-	
+public class OrderIdNotFoundException extends Exception {
+
 	/**
 	 * 
 	 */

@@ -17,49 +17,30 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-
 @Data
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
 @Entity
-@Table(name= "Pizza_Order")
+@Table(name = "Pizza_Order")
 public class PizzaOrder implements Serializable {
-	
-	
-	
-	
+
 	private static final long serialVersionUID = 1L;
 
-	
-	
-	
 	@Id
-	@Column(name="BOOKING_ORDER_ID")
-	@SequenceGenerator(
-			name="pizzaOrder_sequence",
-			sequenceName="pizzaOrder_sequence",
-			allocationSize=1
-			)
-	@GeneratedValue(
-			strategy= GenerationType.SEQUENCE,
-			generator="pizzaOrder_sequence"
-			)
+	@Column(name = "BOOKING_ORDER_ID")
+	@SequenceGenerator(name = "pizzaOrder_sequence", sequenceName = "pizzaOrder_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pizzaOrder_sequence")
 	private Long bookingOrderId;
-	
 
-	@Column(name="QUANTITY")
+	@Column(name = "QUANTITY")
 	private Integer quantity;
 
-
-	@Column(name="TRANSACTION_MODE")
+	@Column(name = "TRANSACTION_MODE")
 	private String transactionMode;
-	
 
-	@ManyToOne 
-	@JoinColumn(name="PIZZA_ID")
+	@ManyToOne
+	@JoinColumn(name = "PIZZA_ID")
 	private Pizza pizza;
-	
-	
+
 }
