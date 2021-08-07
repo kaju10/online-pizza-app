@@ -32,13 +32,8 @@ public class PizzaServiceImpl implements IPizzaService{
 		if(op.isPresent())
 		{
 			pizzaRepository.save(pizza);
-			System.out.println(op.get());
 		}
-		else 
-		{
-			addPizza(pizza);
-		}
-		return null;
+		return op.get();
 	}
 
 	@Override
@@ -84,7 +79,8 @@ public class PizzaServiceImpl implements IPizzaService{
 		// TODO Auto-generated method stub
 		List<Pizza> list = new ArrayList<>();
 		pizzaRepository.findAll().forEach(list::add);
-		list.stream().filter(i->i.getPizzaCost()>minCost && i.getPizzaCost()<maxCost).collect(Collectors.toList());
+		list.stream().filter(i->i.getPizzaCost()>minCost && i.getPizzaCost()<maxCost)
+		.collect(Collectors.toList());
 		return list;
 	}
 

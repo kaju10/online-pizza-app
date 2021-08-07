@@ -10,13 +10,13 @@ import com.cg.ja18.onlinepizzaapp.entity.Pizza;
 
 @Service
 public interface IAdminService {
-	
-	public Customer viewCustomerById(Long customerId);
 
-	public Pizza addPizza(Pizza pizza);
+	Customer viewCustomerById(Long customerId);
 
-	public List<Customer> viewCustomer();
-	
+	Pizza addPizza(Pizza pizza);
+
+	List<Customer> viewCustomer();
+
 	Admin addAdmin(Admin admin);
 
 	List<Admin> viewAdmin();
@@ -24,4 +24,3 @@ public interface IAdminService {
 	Admin viewAdminById(Long adminId);
 
 }
-

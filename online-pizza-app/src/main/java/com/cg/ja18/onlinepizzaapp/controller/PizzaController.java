@@ -21,53 +21,45 @@ import com.cg.ja18.onlinepizzaapp.service.IPizzaService;
 
 @RestController
 public class PizzaController {
-	
-	@Autowired IPizzaRepository pizzaRepository;
-	
+
 	@Autowired
 	private IPizzaService pizzaService;
 
 	@PostMapping("/addpizza")
-	public Pizza addPizza(@Valid @RequestBody Pizza pizza)
-	{
+	public Pizza addPizza(@Valid @RequestBody Pizza pizza) {
 		return pizzaService.addPizza(pizza);
 	}
-	
+
 	@PutMapping("/updatepizza")
-	public Pizza updatePizza(@RequestBody Pizza pizza)
-	{
+	public Pizza updatePizza(@RequestBody Pizza pizza) {
 		return pizzaService.updatePizza(pizza);
 	}
-	
+
 	@DeleteMapping("/deletepizza/{id}")
-    public String deletePizza(@PathVariable("id") int id) throws PizzaIdNotFoundException
-    {
+	public String deletePizza(@PathVariable("id") int id) throws PizzaIdNotFoundException {
 		pizzaService.deletePizza(id);
-    	return  "Pizza - "  + id + " deleted successfully";
-    }
-	
+		return "Pizza - " + id + " deleted successfully";
+	}
+
 	@GetMapping("/viewpizza/{id}")
-	public Pizza viewPizza(@PathVariable("id") int id) throws PizzaIdNotFoundException
-	{
+	public Pizza viewPizza(@PathVariable("id") int id) throws PizzaIdNotFoundException {
 		return pizzaService.viewPizza(id);
 	}
-	
+
 	@GetMapping("/viewpizza")
-	public List<Pizza> viewPizzaList()
-	{
+	public List<Pizza> viewPizzaList() {
 		return pizzaService.viewPizzaList();
 	}
-	
+
 	@GetMapping("/viewpizza/{minCost}/{maxCost}")
-	public List<Pizza> viewPizzaList(@PathVariable("minCost") double minCost,@PathVariable("maxCost") double maxCost) throws InvalidMinCostException
-	{
+	public List<Pizza> viewPizzaList(@PathVariable("minCost") double minCost, @PathVariable("maxCost") double maxCost)
+			throws InvalidMinCostException {
 		return pizzaService.viewPizzaList(minCost, maxCost);
 	}
-	
+
 	@GetMapping("/viewpizza/type/{type}")
-	public List<Pizza> viewPizzaList(@PathVariable("type") String pizzaType)
-	{
-		return pizzaService.viewPizzaList(pizzaType);	
+	public List<Pizza> viewPizzaList(@PathVariable("type") String pizzaType) {
+		return pizzaService.viewPizzaList(pizzaType);
 	}
-	
+
 }

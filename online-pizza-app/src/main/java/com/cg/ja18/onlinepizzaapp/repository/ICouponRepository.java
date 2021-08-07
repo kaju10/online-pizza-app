@@ -7,10 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cg.ja18.onlinepizzaapp.entity.Coupon;
 
-
 @Repository
-public interface ICouponRepository extends JpaRepository<Coupon, Long>
-{
+public interface ICouponRepository extends JpaRepository<Coupon, Long> {
 
-	
 }

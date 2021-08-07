@@ -8,63 +8,66 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-
-
-
-
 @ControllerAdvice
 @ResponseStatus
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(OrderIdNotFoundException.class)
-	public ResponseEntity<ErrorMessage> handleDepartmentNotFoundException(OrderIdNotFoundException ex,WebRequest request) 
-	{
-		ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND,ex.getMessage());
-		
-		
+	public ResponseEntity<ErrorMessage> handleOrderNotFoundException(OrderIdNotFoundException ex, WebRequest request) {
+		ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND, ex.getMessage());
+
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
-		
+
 	}
-	
+
 	@ExceptionHandler(CouponIdNotFoundException.class)
-	public ResponseEntity<ErrorMessage> handleDepartmentNotFoundException(CouponIdNotFoundException ex,WebRequest request) 
-	{
-		ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND,ex.getMessage());
-		
-		
+	public ResponseEntity<ErrorMessage> handleCouponIdNotFoundException(CouponIdNotFoundException ex,
+			WebRequest request) {
+		ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND, ex.getMessage());
+
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
-		
+
 	}
-	
-	
+
 	@ExceptionHandler(InvalidCouponOperationException.class)
-	public ResponseEntity<ErrorMessage> handleDepartmentNotFoundException(InvalidCouponOperationException ex,WebRequest request) 
-	{
-		ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND,ex.getMessage());
-		
-		
+	public ResponseEntity<ErrorMessage> handleInvalidCouponNotFoundException(InvalidCouponOperationException ex,
+			WebRequest request) {
+		ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND, ex.getMessage());
+
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
-		
+
 	}
-	
+
 	@ExceptionHandler(PizzaIdNotFoundException.class)
-	public ResponseEntity<ErrorMessage> handlePizzaNotFoundException(PizzaIdNotFoundException ex,WebRequest request) 
-	{
-		ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND,ex.getMessage());
-		
-		
+	public ResponseEntity<ErrorMessage> handlePizzaNotFoundException(PizzaIdNotFoundException ex, WebRequest request) {
+		ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND, ex.getMessage());
+
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
-		
+
 	}
-	
+
 	@ExceptionHandler(InvalidMinCostException.class)
-	public ResponseEntity<ErrorMessage> handleMinCostException(InvalidMinCostException ex,WebRequest request) 
-	{
-		ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND,ex.getMessage());
-		
-		
+	public ResponseEntity<ErrorMessage> handleMinCostException(InvalidMinCostException ex, WebRequest request) {
+		ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND, ex.getMessage());
+
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
-		
+
 	}
-	
+
+	@ExceptionHandler(AdminIdNotFoundException.class)
+	public ResponseEntity<ErrorMessage> handleAdminNotFoundException(AdminIdNotFoundException ex, WebRequest request) {
+		ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND, ex.getMessage());
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+
+	}
+
+	@ExceptionHandler(CustomerIdNotFoundException.class)
+	public ResponseEntity<ErrorMessage> handleCustomerNotFoundException(CustomerIdNotFoundException ex,
+			WebRequest request) {
+		ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND, ex.getMessage());
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+
+	}
 }

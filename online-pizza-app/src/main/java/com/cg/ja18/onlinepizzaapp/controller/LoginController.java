@@ -18,16 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.ja18.onlinepizzaapp.entity.User;
 import com.cg.ja18.onlinepizzaapp.service.ILoginService;
 
-
 @RestController
 public class LoginController {
-  
 
-	
 	@Autowired
 	private ILoginService loginService;
-	
-	
+
 	@GetMapping("/Login/{mobile}/{password}")
 	public ResponseEntity<?> validateUser(@PathVariable("mobile") Long mobile,
 			@PathVariable("password") String password) {
@@ -38,7 +34,5 @@ public class LoginController {
 		} else
 			return ResponseEntity.ok("Invalid Credentials");
 	}
-		 
 
 }
-

@@ -14,28 +14,21 @@ import com.cg.ja18.onlinepizzaapp.entity.User;
 @DataJpaTest
 class CustomerRepositoryTest {
 
+	@Autowired
+	private ICustomerRepository custRepo;
 
-		@Autowired
-		private ICustomerRepository custRepo;
+	Customer cust;
 
+	@BeforeEach
+	void setUp() throws Exception {
 
-		Customer cust;
-		@BeforeEach
-		void setUp() throws Exception {
-
-			cust = Customer.builder().
-					customerId(1L).
-					customerName("ABC").
-					customerAddress("Kolkata").
-					customerEmail("abc@gmail.com").
-					userName("abc60").
-					password("abc@60").
-					build();
-		}
-
-		@Test
-		void addMethodtest() {
-			assertEquals(custRepo.save(cust),cust);	
-		}
-
+		cust = Customer.builder().customerId(1L).customerName("ABC").customerAddress("Kolkata")
+				.customerEmail("abc@gmail.com").userName("abc60").password("abc@60").build();
 	}
+
+	@Test
+	void addMethodtest() {
+		assertEquals(custRepo.save(cust), cust);
+	}
+
+}

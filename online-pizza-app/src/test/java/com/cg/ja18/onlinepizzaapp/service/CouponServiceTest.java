@@ -2,6 +2,8 @@ package com.cg.ja18.onlinepizzaapp.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,77 +26,52 @@ import com.cg.ja18.onlinepizzaapp.exceptions.CouponIdNotFoundException;
 import com.cg.ja18.onlinepizzaapp.exceptions.InvalidCouponOperationException;
 import com.cg.ja18.onlinepizzaapp.repository.ICouponRepository;
 
-
-
 @SpringBootTest
-public class CouponServiceTest
-{
+public class CouponServiceTest {
 	@Autowired
 	private ICouponService service;
-	
+
 	@MockBean
 	private ICouponRepository repo;
-	
+
 	Coupon coupon;
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
-		coupon = Coupon.builder()
-				.couponName("New Year Offer")
-				.discountPercentage(40.00)
-				.couponDescription("Pizza Coupon")
-				.build();
-		
-	}
-	
-	@Test
-	void addCouponTest() 
-	{
+		coupon = Coupon.builder().couponId(1L).couponName("New Year Offer").discountPercentage(40.00)
+				.couponDescription("Pizza Coupon").build();
+
 		Mockito.when(repo.save(coupon)).thenReturn(coupon);
-	    assertEquals(coupon, service.addCoupans(coupon));
+		Mockito.when(repo.findById(coupon.getCouponId())).thenReturn(Optional.of(coupon));
+		Mockito.when(repo.findAll()).thenReturn(Stream.of(coupon).collect(Collectors.toList()));
 	}
-	
+
 	@Test
-	void showCouponTest() throws CouponIdNotFoundException 
-	{
-		Optional<Coupon> coupon3 = Optional.ofNullable(coupon);
-		Long id = coupon.getCouponId();
-		Mockito.when(repo.findById(id)).thenReturn(coupon3);
-		assertThat(service.viewCoupan(id)).isEqualTo(coupon3.get());
+	void addCouponTest() {
+		assertEquals(coupon.getCouponId(), service.addCoupans(coupon).getCouponId());
 	}
-	
-	
+
 	@Test
-	void showCouponListTest() throws CouponIdNotFoundException 
-	{
-		Mockito.when(repo.findAll())
-		.thenReturn(Stream.of(coupon).collect(Collectors.toList()));
-		
-		assertEquals(1,service.viewCoupans().size());
+	void showCouponTest() throws CouponIdNotFoundException {
+		assertThat(service.viewCoupan(coupon.getCouponId()).getCouponId()).isEqualTo(coupon.getCouponId());
 	}
-	
-	
+
 	@Test
-	void updateCouponTest() throws InvalidCouponOperationException 
-	{
-		
-		Optional<Coupon> coupon3 = Optional.ofNullable(coupon);
-		Coupon c = coupon3.get();
-		c.setDiscountPercentage(10.00);
-		repo.save(c);
-		
-		Mockito.when(repo.findById(coupon.getCouponId())).thenReturn(coupon3);
-		assertThat(c.getDiscountPercentage()).isEqualTo(10.00);
+	void showCouponListTest() throws CouponIdNotFoundException {
+		assertEquals(1, service.viewCoupans().size());
 	}
-	
-	
+
 	@Test
-	
-	void deleteCouponTest() throws CouponIdNotFoundException 
-	{
-	   repo.deleteById(coupon.getCouponId());
-	   assertThat(repo.existsById(coupon.getCouponId())).isFalse();
-	    
-		
+	void updateCouponTest() throws InvalidCouponOperationException {
+		assertEquals(coupon, service.editCoupans(coupon));
+	}
+
+	@Test
+
+	void deleteCouponTest() throws CouponIdNotFoundException {
+		System.out.println(coupon.getCouponId());
+		service.deleteCoupans(coupon.getCouponId());
+
+		verify(repo, times(1)).deleteById(coupon.getCouponId());
 	}
 }

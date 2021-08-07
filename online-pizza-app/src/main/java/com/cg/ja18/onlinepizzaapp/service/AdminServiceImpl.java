@@ -8,29 +8,29 @@ import org.springframework.stereotype.Service;
 
 import com.cg.ja18.onlinepizzaapp.entity.Admin;
 import com.cg.ja18.onlinepizzaapp.entity.Customer;
+import com.cg.ja18.onlinepizzaapp.entity.Order;
 import com.cg.ja18.onlinepizzaapp.entity.Pizza;
 import com.cg.ja18.onlinepizzaapp.entity.User;
 import com.cg.ja18.onlinepizzaapp.exceptions.AdminIdNotFoundException;
 import com.cg.ja18.onlinepizzaapp.exceptions.CustomerIdNotFoundException;
+import com.cg.ja18.onlinepizzaapp.exceptions.OrderIdNotFoundException;
 import com.cg.ja18.onlinepizzaapp.repository.IAdminRepository;
 import com.cg.ja18.onlinepizzaapp.repository.ICustomerRepository;
 import com.cg.ja18.onlinepizzaapp.repository.ILoginRepository;
 import com.cg.ja18.onlinepizzaapp.repository.IPizzaRepository;
 
 @Service
-public class AdminServiceImpl implements IAdminService{
+public class AdminServiceImpl implements IAdminService {
 
 	@Autowired
 	public ICustomerRepository custRepo;
-	
+
 	@Autowired
 	public IPizzaRepository pizzaRepo;
-	
+
 	@Autowired
 	public IAdminRepository adminrepo;
-//	@Autowired
-//	private ILoginRepository userrepo;
-	
+
 	@Override
 	public Customer viewCustomerById(Long customerId) {
 		Optional<Customer> customer = custRepo.findById(customerId);
@@ -52,24 +52,22 @@ public class AdminServiceImpl implements IAdminService{
 
 	@Override
 	public Admin addAdmin(Admin admin) {
-		// TODO Auto-generated method stub
-		
-//		User user=new User(admin.getAdminId(),admin.getAdminName(),admin.getAdminpassword(),"admin");
-//		userrepo.save(user);
+
 		return adminrepo.save(admin);
-		
-		
+
 	}
-	
+
 	@Override
 	public Admin viewAdminById(Long adminId) {
-		Admin admin = adminrepo.findByAdminId(adminId);
-		if (admin==null) {
+		Optional<Admin> admin = adminrepo.findById(adminId);
+		if (admin.isPresent()) {
+			return admin.get();
+
+		} else {
 			throw new AdminIdNotFoundException("Admin id is not available");
 		}
-		return admin;
 	}
-	
+
 	@Override
 	public List<Admin> viewAdmin() {
 		return adminrepo.findAll();

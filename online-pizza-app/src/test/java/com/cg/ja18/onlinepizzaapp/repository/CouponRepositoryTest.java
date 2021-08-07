@@ -26,50 +26,42 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.cg.ja18.onlinepizzaapp.entity.Coupon;
 import com.cg.ja18.onlinepizzaapp.repository.ICouponRepository;
 
-
 @DataJpaTest
-@AutoConfigureTestDatabase(replace=Replace.NONE)
+@AutoConfigureTestDatabase(replace = Replace.NONE)
 
 public class CouponRepositoryTest {
 
 	@Autowired
 	private ICouponRepository repo;
-	
+
 	Coupon coupon;
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
-		coupon = Coupon.builder()
-				.couponName("New Year Offer")
-				.discountPercentage(40.00)
-				.couponDescription("Pizza Coupon")
-				.build();
-		
+		coupon = Coupon.builder().couponName("New Year Offer").discountPercentage(40.00)
+				.couponDescription("Pizza Coupon").build();
+
 		repo.save(coupon);
 	}
 
 	@Test
-	void findMethodtest() 
-	{
+	void findMethodtest() {
 		Long id = coupon.getCouponId();
-		assertEquals(40.00,repo.findById(id).get().getDiscountPercentage());	
+		assertEquals(40.00, repo.findById(id).get().getDiscountPercentage());
 	}
 
 	@Test
-	void addMethodtest()
-	{
-		assertEquals(repo.save(coupon),coupon);	
+	void addMethodtest() {
+		assertEquals(repo.save(coupon), coupon);
 	}
-	
+
 	@Test
-	void finaAllMethodTest()
-	{
-	   assertNotNull(repo.findAll());
+	void finaAllMethodTest() {
+		assertNotNull(repo.findAll());
 	}
-	
+
 	@Test
-	void deleteMethodTest()
-	{
+	void deleteMethodTest() {
 		repo.deleteById(coupon.getCouponId());
 	}
 }

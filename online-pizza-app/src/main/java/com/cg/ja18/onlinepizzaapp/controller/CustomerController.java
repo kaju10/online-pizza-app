@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.ja18.onlinepizzaapp.entity.Customer;
+import com.cg.ja18.onlinepizzaapp.entity.Order;
 import com.cg.ja18.onlinepizzaapp.service.ICustomerService;
 import com.cg.ja18.onlinepizzaapp.service.IPizzaService;
 import com.cg.ja18.onlinepizzaapp.entity.Pizza;
@@ -26,45 +27,24 @@ import com.cg.ja18.onlinepizzaapp.repository.ILoginRepository;
 @RestController
 public class CustomerController {
 
-	
-
 	@Autowired
 	private ICustomerService custService;
-	
+
 	@Autowired
 	private IPizzaService pizzaService;
 
 	@Autowired
 	private ILoginRepository userRepo;
-		
-		@PostMapping("/saveCustomer")
-		public Customer addCustomer(@Valid @RequestBody Customer customer) {
-			for(User user : userRepo.findAll()) {
-				if(customer.getUser().getMobile()==user.getMobile()) {
-					System.out.print("user already registered.");
-				}
-			}
-			return custService.addCustomer(customer);
-		}
-	
 
-	/*
-	 * @GetMapping("/customer") public List<Customer> viewCustomers() {
-	 * 
-	 * return custService.viewCustomers(); }
-	 */
-	/*
-	 * @GetMapping("/customer/{id}") public Customer
-	 * viewCustomer(@PathVariable("id")Integer customerId) { return
-	 * custService.viewCustomer(customerId);
-	 * 
-	 * }
-	 * 
-	 * @DeleteMapping("/customer/{id}") public String
-	 * deleteCustomer(@PathVariable("id") Integer customerId) {
-	 * custService.deleteCustomer(customerId); return "Customer - " + customerId +
-	 * " deleted successfully"; }
-	 */
+	@PostMapping("/saveCustomer")
+	public Customer addCustomer(@Valid @RequestBody Customer customer) {
+		for (User user : userRepo.findAll()) {
+			if (customer.getUser().getMobile() == user.getMobile()) {
+				System.out.print("user already registered.");
+			}
+		}
+		return custService.addCustomer(customer);
+	}
 
 	@PutMapping("/updateCustomer/{customerId}")
 	public Customer updateCustomer(@PathVariable("customerId") Long customerId, @RequestBody Customer customer) {
@@ -72,8 +52,15 @@ public class CustomerController {
 	}
 
 	@GetMapping("/viewPizza")
-	public List<Pizza> viewPizzaList(){
+	public List<Pizza> viewPizzaList() {
 		return pizzaService.viewPizzaList();
+
+	}
+	
+	@GetMapping("/viewOrdersOrdered/{customerId}")
+	public List<Order> viewOrdersOfSingleCustomer(@PathVariable Long customerId){
+		
+		return custService.viewOrdersByCustomer(customerId);
 		
 	}
 }

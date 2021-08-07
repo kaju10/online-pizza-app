@@ -15,41 +15,31 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="pizza")
+@Table(name = "pizza")
 
-public class Pizza implements Serializable{
+public class Pizza implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
 
 	@Id
-	@SequenceGenerator(
-			name="pizza_sequence",
-			sequenceName="pizza_sequence",
-			allocationSize=1
-			)
-	@GeneratedValue(
-			strategy= GenerationType.SEQUENCE,
-			generator="pizza_sequence"
-			)
-	@Column(name="PIZZA_ID")
+	@SequenceGenerator(name = "pizza_sequence", sequenceName = "pizza_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pizza_sequence")
+	@Column(name = "PIZZA_ID")
 	private Integer pizzaId;
-	@Column(name="PIZZA_TYPE")
+	@Column(name = "PIZZA_TYPE")
 	private String pizzaType;
-	@Column(name="PIZZA_NAME")
+	@Column(name = "PIZZA_NAME")
 	private String pizzaName;
-	@Column(name="PIZZA_SIZE")
+	@Column(name = "PIZZA_SIZE")
 	private String size;
-	@Column(name="PIZZA_DESCRIPTION")
+	@Column(name = "PIZZA_DESCRIPTION")
 	private String pizzaDescription;
-	@Column(name="PIZZA_COST")
+	@Column(name = "PIZZA_COST")
 	private Double pizzaCost;
-	
-	
+
 }

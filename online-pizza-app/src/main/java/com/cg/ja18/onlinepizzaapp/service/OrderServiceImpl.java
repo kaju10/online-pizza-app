@@ -7,8 +7,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.ja18.onlinepizzaapp.entity.Coupon;
 import com.cg.ja18.onlinepizzaapp.entity.Order;
 import com.cg.ja18.onlinepizzaapp.entity.PizzaOrder;
+import com.cg.ja18.onlinepizzaapp.exceptions.CouponIdNotFoundException;
 import com.cg.ja18.onlinepizzaapp.exceptions.OrderIdNotFoundException;
 import com.cg.ja18.onlinepizzaapp.repository.IOrderRepository;
 
@@ -28,18 +30,15 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	@Override
-	public Order updateOrder(Order order) {
+	public Order updateOrder(Order order) throws OrderIdNotFoundException {
 		// TODO Auto-generated method stub
 		Optional<Order> o = orderrepo.findById(order.getOrderId());
-		Order order1 = getCostAfterCoupon(order);
 		if (o.isPresent()) {
-
-			orderrepo.save(order1);
-			System.out.println(o.get());
+			Order order1 = getCostAfterCoupon(order);
+			return orderrepo.save(order1);
 		} else {
-			bookOrder(order1);
+			throw new OrderIdNotFoundException("Order id is not found");
 		}
-		return order1;
 	}
 
 	@Override
@@ -69,11 +68,18 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	@Override
-	public List<Order> viewOrderList() {
+	public List<Order> viewOrderList() throws OrderIdNotFoundException {
 		// TODO Auto-generated method stub
 		List<Order> list = new ArrayList<>();
 		orderrepo.findAll().forEach(list::add);
-		return list;
+		if(list.isEmpty())
+		{
+			throw new OrderIdNotFoundException("The Order List Is Empty");
+		}
+		else
+		{
+			return list;
+		}
 	}
 
 	public Order getTotalCost(Order order) {

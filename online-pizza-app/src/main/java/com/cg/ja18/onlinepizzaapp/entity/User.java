@@ -1,7 +1,5 @@
 package com.cg.ja18.onlinepizzaapp.entity;
 
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,9 +22,9 @@ import lombok.NoArgsConstructor;
 public class User {
 
 	@Id
-	@Column(name="mobile_num")
+	@Column(name = "mobile_num")
 	private Long mobile;
-		
+
 	@Column(name = "user_name")
 	private String userName;
 
@@ -35,6 +33,5 @@ public class User {
 
 	@Column(name = "user_type")
 	private String userType;
-	
-}
 
+}

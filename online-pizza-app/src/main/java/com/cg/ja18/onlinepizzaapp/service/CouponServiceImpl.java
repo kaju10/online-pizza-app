@@ -12,82 +12,59 @@ import com.cg.ja18.onlinepizzaapp.exceptions.CouponIdNotFoundException;
 import com.cg.ja18.onlinepizzaapp.exceptions.InvalidCouponOperationException;
 import com.cg.ja18.onlinepizzaapp.repository.ICouponRepository;
 
-
-
 @Service
-public class CouponServiceImpl implements ICouponService
-{
+public class CouponServiceImpl implements ICouponService {
 	@Autowired
 	public ICouponRepository repo;
-	
-	//C
+
 	@Override
-	public Coupon addCoupans(Coupon coupon)
-	{
+	public Coupon addCoupans(Coupon coupon) {
 		Coupon rcoupon = repo.save(coupon);
 		return rcoupon;
 	}
-	
-	//U
+
 	@Override
-	public Coupon editCoupans(Coupon coupon) throws InvalidCouponOperationException
-	{
+	public Coupon editCoupans(Coupon coupon) throws InvalidCouponOperationException {
 		Optional<Coupon> rcoupon = repo.findById(coupon.getCouponId());
-		if (rcoupon.isPresent())
-		{	
-			//repo.deleteById(coupon.getCouponId());
+		if (rcoupon.isPresent()) {
+			// repo.deleteById(coupon.getCouponId());
 			repo.save(coupon);
 			return rcoupon.get();
-		} 
-		else
-		{
+		} else {
 			throw new InvalidCouponOperationException("Coupon is not available");
-		}		
+		}
 	}
-	
-	//D
+
 	@Override
-	public Coupon deleteCoupans(Long couponId) throws CouponIdNotFoundException
-	{
+	public void deleteCoupans(Long couponId) throws CouponIdNotFoundException {
 		Optional<Coupon> rcoupon = repo.findById(couponId);
-		if (rcoupon.isPresent())
-		{
+		if (rcoupon.isPresent()) {
 			repo.deleteById(couponId);
-			return rcoupon.get();
-		} 
-		else
-		{
+
+		} else {
 			throw new CouponIdNotFoundException("There is no such Coupon");
-		}	
-	   
+		}
+
 	}
-	
-	//R
+
 	@Override
-	public List<Coupon> viewCoupans() throws CouponIdNotFoundException
-	{
+	public List<Coupon> viewCoupans() throws CouponIdNotFoundException {
 		List<Coupon> list = new ArrayList<>();
 		repo.findAll().forEach(list::add);
-		if(list.isEmpty())
-		{
+		if (list.isEmpty()) {
 			throw new CouponIdNotFoundException("Empty");
-		}
-		else
-		{
+		} else {
 			return list;
 		}
 	}
+
 	@Override
-	public Coupon viewCoupan(Long couponId) throws CouponIdNotFoundException
-	{
+	public Coupon viewCoupan(Long couponId) throws CouponIdNotFoundException {
 		Optional<Coupon> rcoupon = repo.findById(couponId);
-		if (rcoupon.isPresent())
-		{
+		if (rcoupon.isPresent()) {
 			return rcoupon.get();
-		} 
-		else
-		{
+		} else {
 			throw new CouponIdNotFoundException("Coupon is not available");
-		}	
+		}
 	}
 }

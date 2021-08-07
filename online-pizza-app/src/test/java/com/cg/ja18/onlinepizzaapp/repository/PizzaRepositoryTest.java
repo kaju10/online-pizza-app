@@ -24,61 +24,50 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.cg.ja18.onlinepizzaapp.entity.Pizza;
 
-
-
 @DataJpaTest
-//@AutoConfigureTestDatabase(replace=Replace.NONE)
+@AutoConfigureTestDatabase(replace = Replace.NONE)
 public class PizzaRepositoryTest {
-	
+
 	@Autowired
 	private IPizzaRepository pizzaRepository;
-	
-//	@Autowired
-//	private TestEntityManager manager;
-	
+
 	Pizza p1;
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
-		p1 = Pizza.builder()
-				.pizzaType("Veg")
-				.pizzaName("Paneer Pizza")
-				
-				.pizzaDescription("its a peppy paneer pizza")
-				.pizzaCost(150.00).build();
+		p1 = Pizza.builder().pizzaType("Veg").pizzaName("Paneer Pizza")
+
+				.pizzaDescription("its a peppy paneer pizza").pizzaCost(150.00).build();
 		pizzaRepository.save(p1);
 	}
-	
+
 	@Test
 	void addMethodtest() {
-		assertEquals(pizzaRepository.save(p1),p1);	
+		assertEquals(pizzaRepository.save(p1), p1);
 	}
-	
+
 	@Test
 	void findMethodtest() {
-		
+
 		Integer id = p1.getPizzaId();
-		assertEquals(id,pizzaRepository.findById(id).get().getPizzaId());	
+		assertEquals(id, pizzaRepository.findById(id).get().getPizzaId());
 	}
-	
+
 	@Test
-	void updateMethodTest()
-	{
+	void updateMethodTest() {
 		Integer id = p1.getPizzaId();
 		pizzaRepository.findById(id).get().setPizzaCost(175.00);
-		assertEquals(175.00,pizzaRepository.findById(id).get().getPizzaCost());	
+		assertEquals(175.00, pizzaRepository.findById(id).get().getPizzaCost());
 	}
-	
+
 	@Test
-	void findAllMethodTest()
-	{
+	void findAllMethodTest() {
 		pizzaRepository.save(p1);
 		assertNotNull(pizzaRepository.findAll());
 	}
-	
+
 	@Test
-	void deleteMethodTest()
-	{
+	void deleteMethodTest() {
 		Pizza p2 = pizzaRepository.save(p1);
 		pizzaRepository.deleteById(p2.getPizzaId());
 	}

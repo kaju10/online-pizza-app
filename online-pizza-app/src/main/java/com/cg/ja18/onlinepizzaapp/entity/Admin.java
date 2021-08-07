@@ -25,27 +25,20 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-	@Table(name="admin_table")
-	public class Admin implements Serializable{
+@Table(name = "admin_table")
+public class Admin implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@SequenceGenerator(
-			name="admin_sequence",
-			sequenceName="admin_sequence",
-			allocationSize=1
-			)
-	@GeneratedValue(
-			strategy= GenerationType.SEQUENCE,
-			generator="admin_sequence"
-			)
+	@SequenceGenerator(name = "admin_sequence", sequenceName = "admin_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "admin_sequence")
 	@Id
 	@Column(name = "admin_Id")
 	private Long adminId;
-	
+
 	@Column(name = "user_name")
 	private String adminName;
 
@@ -54,5 +47,5 @@ import lombok.NoArgsConstructor;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private User user;
-		
+
 }

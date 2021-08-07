@@ -40,12 +40,12 @@ public class OrderController {
 	}
 
 	@GetMapping("/showorder")
-	public List<Order> showOrderList() {
+	public List<Order> showOrderList() throws OrderIdNotFoundException {
 		return order_service.viewOrderList();
 	}
 
 	@PutMapping("/updateorder")
-	public String updateOrder(@RequestBody Order order) {
+	public String updateOrder(@RequestBody Order order) throws OrderIdNotFoundException {
 
 		order_service.updateOrder(order);
 		return "order with order id " + order.getOrderId() + " got updated";

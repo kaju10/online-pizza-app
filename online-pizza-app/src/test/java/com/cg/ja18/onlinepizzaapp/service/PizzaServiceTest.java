@@ -1,6 +1,8 @@
 package com.cg.ja18.onlinepizzaapp.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,84 +24,55 @@ import com.cg.ja18.onlinepizzaapp.entity.Pizza;
 import com.cg.ja18.onlinepizzaapp.exceptions.PizzaIdNotFoundException;
 import com.cg.ja18.onlinepizzaapp.repository.IPizzaRepository;
 
-
 @SpringBootTest
-@TestMethodOrder(OrderAnnotation.class)
 public class PizzaServiceTest {
-	
+
 	@Autowired
 	private IPizzaService service;
-	
+
 	@MockBean
 	private IPizzaRepository pizzaRepository;
-	
 
 	Pizza pizza;
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
-		pizza = Pizza.builder()
-				.pizzaType("Veg")
-				.pizzaName("Paneer Pizza")
-				.size("Large")
-				.pizzaDescription("its a peppy paneer pizza")
-				.pizzaCost(150.00).build();
-		//pizzaRepository.save(pizza);
+		pizza = Pizza.builder().pizzaId(1).pizzaType("Veg").pizzaName("Paneer Pizza").size("Large")
+				.pizzaDescription("its a peppy paneer pizza").pizzaCost(150.00).build();
+
 		Mockito.when(pizzaRepository.save(pizza)).thenReturn(pizza);
-	}
-	
-	@Test
-	@Order(1)
-	void addPizzaTest() 
-	{
-		
-	    assertEquals(pizza, service.addPizza(pizza));
-	}
-	
-	@Test
-	@Order(2)
-	void viewPizzaTest() throws PizzaIdNotFoundException 
-	{
-		int pizzaId=100;
-		Optional<Pizza> pizza1 = Optional.ofNullable(pizza);
-		Mockito.when(pizzaRepository.findById(100)).thenReturn(pizza1);
-		Assertions.assertThat(service.viewPizza(100)).isEqualTo(pizza1.get());
+		Mockito.when(pizzaRepository.findById(pizza.getPizzaId())).thenReturn(Optional.of(pizza));
+		Mockito.when(pizzaRepository.findAll()).thenReturn(Stream.of(pizza).collect(Collectors.toList()));
+
 	}
 
 	@Test
-	@Order(3)
-	void viewPizzaListTest() throws PizzaIdNotFoundException 
-	{
-		Mockito.when(pizzaRepository.findAll())
-		.thenReturn(Stream.of(pizza).collect(Collectors.toList()));
-		
-		assertEquals(1,service.viewPizzaList().size());
-	}
-	
-	@Test
-	@Order(4)
-	@Rollback(false)
-	void updatePizzaTest() 
-	{
-		
-		Optional<Pizza> pizza1 = Optional.ofNullable(pizza);
+	void addPizzaTest() {
 
-		Pizza p = pizza1.get();
-		p.setPizzaCost(125.00);
-		pizzaRepository.save(p);
-		
-		Mockito.when(pizzaRepository.findById(100)).thenReturn(pizza1);
-		Assertions.assertThat(p.getPizzaCost()).isEqualTo(125.00);
+		assertEquals(pizza, service.addPizza(pizza));
 	}
 
 	@Test
-	@Order(5)
-	void deletePizzaTest() throws PizzaIdNotFoundException 
-	{
-		pizzaRepository.deleteById(102);
-		Assertions.assertThat(pizzaRepository.existsById(102)).isFalse();
+	void viewPizzaTest() throws PizzaIdNotFoundException {
+		Assertions.assertThat(service.viewPizza(pizza.getPizzaId()).getPizzaId()).isEqualTo(pizza.getPizzaId());
+
 	}
 
+	@Test
+	void viewPizzaListTest() throws PizzaIdNotFoundException {
+		assertEquals(1, service.viewPizzaList().size());
+	}
 
+	@Test
+	void updatePizzaTest() {
+
+		assertEquals(pizza.getPizzaId(), service.updatePizza(pizza).getPizzaId());
+	}
+
+	@Test
+	void deletePizzaTest() throws PizzaIdNotFoundException {
+		service.deletePizza(pizza.getPizzaId());
+		verify(pizzaRepository, times(1)).deleteById(pizza.getPizzaId());
+	}
 
 }

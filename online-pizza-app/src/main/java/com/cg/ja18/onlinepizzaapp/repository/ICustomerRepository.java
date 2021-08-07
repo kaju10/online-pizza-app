@@ -5,10 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cg.ja18.onlinepizzaapp.entity.Customer;
 
-
-
 @Repository
-public interface ICustomerRepository extends JpaRepository<Customer,Long> {
+public interface ICustomerRepository extends JpaRepository<Customer, Long> {
 
-	
 }

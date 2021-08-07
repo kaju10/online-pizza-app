@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.cg.ja18.onlinepizzaapp.entity.Admin;
 
 @Repository
-public interface IAdminRepository extends JpaRepository<Admin, Long>{
+public interface IAdminRepository extends JpaRepository<Admin, Long> {
 
-	public Admin findByAdminId(Long adminId);
 }

@@ -19,39 +19,38 @@ import com.cg.ja18.onlinepizzaapp.service.IPizzaService;
 
 @RestController
 public class AdminController {
-	
+
 	@Autowired
 	private IPizzaService pizzaService;
-	
+
 	@Autowired
 	private IAdminService adminService;
-	
+
 	@GetMapping("/customer/{customerId}")
 	public Customer viewCustomerByCustomerId(@PathVariable("customerId") Long customerId) {
 		return adminService.viewCustomerById(customerId);
 
 	}
-	
+
 	@PostMapping("/addPizza")
 	public Pizza addPizza(@Valid @RequestBody Pizza pizza) {
 		return pizzaService.addPizza(pizza);
 	}
 
 	@GetMapping("/viewCustomer")
-	public List<Customer> viewCustomer(){
+	public List<Customer> viewCustomer() {
 		return adminService.viewCustomer();
 	}
-	
+
 	@PostMapping("/saveAdmin")
 	public Admin addAdmin(@RequestBody Admin admin) {
 		return adminService.addAdmin(admin);
-		
-	}
-	
-	@GetMapping("/viewAdmin")
-	public List<Admin> viewAdmin(){
-		return adminService.viewAdmin();	
-	}
-	
-}
 
+	}
+
+	@GetMapping("/viewAdmin")
+	public List<Admin> viewAdmin() {
+		return adminService.viewAdmin();
+	}
+
+}

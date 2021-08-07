@@ -13,7 +13,7 @@ public interface ICouponService {
 
 	Coupon editCoupans(Coupon coupan) throws InvalidCouponOperationException;
 
-	Coupon deleteCoupans(Long coupanId)throws CouponIdNotFoundException;
+	void deleteCoupans(Long coupanId)throws CouponIdNotFoundException;
 
 	List<Coupon> viewCoupans() throws CouponIdNotFoundException;
 
