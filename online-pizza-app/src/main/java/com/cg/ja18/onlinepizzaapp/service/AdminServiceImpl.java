@@ -32,7 +32,7 @@ public class AdminServiceImpl implements IAdminService{
 //	private ILoginRepository userrepo;
 	
 	@Override
-	public Customer viewCustomerById(Long customerId) {
+	public Customer viewCustomerById(Long customerId)throws CustomerIdNotFoundException {
 		Optional<Customer> customer = custRepo.findById(customerId);
 		if (!customer.isPresent()) {
 			throw new CustomerIdNotFoundException("customer id is not available");
@@ -62,7 +62,7 @@ public class AdminServiceImpl implements IAdminService{
 	}
 	
 	@Override
-	public Admin viewAdminById(Long adminId) {
+	public Admin viewAdminById(Long adminId)throws AdminIdNotFoundException {
 		Admin admin = adminrepo.findByAdminId(adminId);
 		if (admin==null) {
 			throw new AdminIdNotFoundException("Admin id is not available");
