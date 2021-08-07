@@ -56,11 +56,11 @@ public class CustomerController {
 		return pizzaService.viewPizzaList();
 
 	}
-	
+
 	@GetMapping("/viewOrdersOrdered/{customerId}")
-	public List<Order> viewOrdersOfSingleCustomer(@PathVariable Long customerId){
-		
+	public List<Order> viewOrdersOfSingleCustomer(@PathVariable Long customerId) {
+
 		return custService.viewOrdersByCustomer(customerId);
-		
+
 	}
 }
