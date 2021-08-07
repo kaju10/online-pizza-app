@@ -11,7 +11,7 @@ import com.cg.ja18.onlinepizzaapp.entity.Pizza;
 @Service
 public interface IAdminService {
 	
-	public Customer viewCustomerById(Long customerId);
+	public Customer viewCustomerById(Long customerId)throws CustomerIdNotFoundException;
 
 	public Pizza addPizza(Pizza pizza);
 
@@ -21,7 +21,7 @@ public interface IAdminService {
 
 	List<Admin> viewAdmin();
 
-	Admin viewAdminById(Long adminId);
+	Admin viewAdminById(Long adminId)throws AdminIdNotFoundException;
 
 }
 
