@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -65,5 +67,10 @@ public class Order implements Serializable {
 
 	@Column(name = "BILL_PRICE")
 	private Double costAfterCoupon;
+	
+	@JsonBackReference
+	public Customer getCustomer() {
+		return customer;
+	}
 
 }
