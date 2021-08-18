@@ -60,8 +60,8 @@ public class AdminController {
 	}
 	
 	@GetMapping("/viewAdmin/{mobile}")
-	public List<Admin> viewAdminById(@PathVariable("mobile") Long mobile) {
-		return adminService.viewAdmin();
+	public Admin viewAdminById(@PathVariable("mobile") Long mobile) {
+		return adminService.viewAdminById(mobile);
 	}
 
 }
