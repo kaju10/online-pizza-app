@@ -31,19 +31,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "customer_table")
-public class Customer implements Serializable {
+public class Customer extends User implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	@SequenceGenerator(name = "customer_sequence", sequenceName = "customer_sequence", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_sequence")
-	@Id
-	@Column(name = "customer_id")
-	private Long customerId;
-
+	
 	@Column(name = "customer_name")
 	private String customerName;
 
@@ -52,16 +46,7 @@ public class Customer implements Serializable {
 
 	@Column(name = "customer_address")
 	private String customerAddress;
-
-	@Column(name = "user_name")
-	private String userName;
-
-	@Column(name = "password")
-	private String password;
-
-	@OneToOne(cascade = CascadeType.ALL)
-	private User user;
-
+	
 	@OneToMany(mappedBy = "customer")
 	private List<Order> order;
 	
@@ -69,5 +54,31 @@ public class Customer implements Serializable {
 	public List<Order> getOrder() {
 		return order;
 	}
+
+//	@SequenceGenerator(name = "customer_sequence", sequenceName = "customer_sequence", allocationSize = 1)
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_sequence")
+//	@Id
+//	@Column(name = "customer_id")
+//	private Long customerId;
+//
+//	@Column(name = "customer_name")
+//	private String customerName;
+//
+//	@Column(name = "customer_email")
+//	private String customerEmail;
+//
+//	@Column(name = "customer_address")
+//	private String customerAddress;
+//
+//	@Column(name = "user_name")
+//	private String userName;
+//
+//	@Column(name = "password")
+//	private String password;
+//
+//	@OneToOne(cascade = CascadeType.ALL)
+//	private User user;
+
+	
 
 }

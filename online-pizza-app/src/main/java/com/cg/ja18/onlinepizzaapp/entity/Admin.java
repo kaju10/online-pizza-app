@@ -26,26 +26,31 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "admin_table")
-public class Admin implements Serializable {
+public class Admin extends User implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Column(name = "admin_address")
+	private String adminAddress;
+	
+	
 
-	@SequenceGenerator(name = "admin_sequence", sequenceName = "admin_sequence", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "admin_sequence")
-	@Id
-	@Column(name = "admin_Id")
-	private Long adminId;
-
-	@Column(name = "user_name")
-	private String adminName;
-
-	@Column(name = "password")
-	private String adminpassword;
-
-	@OneToOne(cascade = CascadeType.ALL)
-	private User user;
+//	@SequenceGenerator(name = "admin_sequence", sequenceName = "admin_sequence", allocationSize = 1)
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "admin_sequence")
+//	@Id
+//	@Column(name = "admin_Id")
+//	private Long adminId;
+//
+//	@Column(name = "user_name")
+//	private String adminName;
+//
+//	@Column(name = "password")
+//	private String adminpassword;
+//
+//	@OneToOne(cascade = CascadeType.ALL)
+//	private User user;
 
 }

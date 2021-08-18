@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.test.context.ContextConfiguration;
+
 
 import com.cg.ja18.onlinepizzaapp.entity.Admin;
 
@@ -25,14 +22,19 @@ class AdminRepositoryTest {
 	@BeforeEach
 	void setUp() throws Exception {
 
-		Admin admin = Admin.builder().adminId(1L).adminName("Joy Roy").adminpassword("jroy456").build();
+		Admin admin = new Admin();
+		admin.setMobile(8976543210L);
+		admin.setUserName("abc");
+		admin.setPassword("xyz");
+		admin.setAdminAddress("Kolkata");
+				
 
 		adminRepo.save(admin);
 	}
 
 	@Test
 	public void whenFindById_thenReturnAdmin() {
-		assertEquals(1L, adminRepo.findById(1L).get().getAdminId());
+		assertEquals(8976543210L, adminRepo.findById(8976543210L).get().getMobile());
 	}
 
 }

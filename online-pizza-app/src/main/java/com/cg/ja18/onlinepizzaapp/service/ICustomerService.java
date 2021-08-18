@@ -16,10 +16,10 @@ public interface ICustomerService {
 	
 	 Customer addCustomer(Customer customer);  
 
-	 Customer updateCustomer(Long customerId,Customer customer);
+	 Customer updateCustomer(Customer customer);
     
 	 List<Pizza> viewPizzaList();
 
-	List<Order> viewOrdersByCustomer(Long customerId);
+	 List<Order> viewOrdersByCustomer(Long mobile);
 
 }

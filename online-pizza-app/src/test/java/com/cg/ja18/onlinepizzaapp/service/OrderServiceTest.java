@@ -38,7 +38,7 @@ class OrderServiceTest {
 	void setUp() throws Exception {
 
 		Customer customer = Customer.builder().customerName("ABC").customerAddress("Kolkata").customerEmail("abc@60")
-				.userName("abc@gmail.com").password("abc@60").build();
+				.build();
 		Pizza pizza = Pizza.builder().pizzaName("Chicken Sausage Pizza").pizzaType("Non Veg").pizzaCost(200.0)
 				.pizzaDescription("Contains Chicken Sausage").build();
 		Coupon coupon = Coupon.builder().couponName("Winter50").couponDescription("50% Off on All Orders")

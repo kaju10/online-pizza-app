@@ -36,10 +36,12 @@ public class Pizza implements Serializable {
 	@Column(name = "PIZZA_NAME")
 	private String pizzaName;
 	@Column(name = "PIZZA_SIZE")
-	private String size;
+	private String pizzaSize;
 	@Column(name = "PIZZA_DESCRIPTION")
 	private String pizzaDescription;
 	@Column(name = "PIZZA_COST")
 	private Double pizzaCost;
+	@Column(name = "PIZZA_IMAGE_URL")
+	private String pizzaImageUrl;
 
 }

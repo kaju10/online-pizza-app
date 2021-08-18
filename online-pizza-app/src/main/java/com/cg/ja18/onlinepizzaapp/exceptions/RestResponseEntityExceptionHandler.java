@@ -70,4 +70,23 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
 
 	}
+	
+	@ExceptionHandler(CustomerAlreadyPresentException.class)
+	public ResponseEntity<ErrorMessage> handleCustomerAlreadyPresentException(CustomerAlreadyPresentException ex,
+			WebRequest request) {
+		ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND, ex.getMessage());
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+
+	}
+	
+	@ExceptionHandler(AdminAlreadyPresentException.class)
+	public ResponseEntity<ErrorMessage> handleAdminAlreadyPresentException(AdminAlreadyPresentException ex,
+			WebRequest request) {
+		ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND, ex.getMessage());
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+
+	}
+	
 }

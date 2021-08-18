@@ -11,12 +11,12 @@ import com.cg.ja18.onlinepizzaapp.entity.Customer;
 import com.cg.ja18.onlinepizzaapp.entity.Order;
 import com.cg.ja18.onlinepizzaapp.entity.Pizza;
 import com.cg.ja18.onlinepizzaapp.entity.User;
+import com.cg.ja18.onlinepizzaapp.exceptions.AdminAlreadyPresentException;
 import com.cg.ja18.onlinepizzaapp.exceptions.AdminIdNotFoundException;
 import com.cg.ja18.onlinepizzaapp.exceptions.CustomerIdNotFoundException;
 import com.cg.ja18.onlinepizzaapp.exceptions.OrderIdNotFoundException;
 import com.cg.ja18.onlinepizzaapp.repository.IAdminRepository;
 import com.cg.ja18.onlinepizzaapp.repository.ICustomerRepository;
-import com.cg.ja18.onlinepizzaapp.repository.ILoginRepository;
 import com.cg.ja18.onlinepizzaapp.repository.IPizzaRepository;
 
 @Service
@@ -30,10 +30,21 @@ public class AdminServiceImpl implements IAdminService {
 
 	@Autowired
 	public IAdminRepository adminrepo;
+	
+	@Override
+	public Admin addAdmin(Admin admin) {
+		Optional<Admin> adm = adminrepo.findById(admin.getMobile());
+		if(adm.isPresent()) {
+			throw new AdminAlreadyPresentException("Admin with mobile number " + admin.getMobile() + " is already registered");
+		}
+		else {
+			return adminrepo.save(admin);
+		}
+	}
 
 	@Override
-	public Customer viewCustomerById(Long customerId) {
-		Optional<Customer> customer = custRepo.findById(customerId);
+	public Customer viewCustomerById(Long mobile) {
+		Optional<Customer> customer = custRepo.findById(mobile);
 		if (!customer.isPresent()) {
 			throw new CustomerIdNotFoundException("customer id is not available");
 		}
@@ -50,16 +61,10 @@ public class AdminServiceImpl implements IAdminService {
 		return custRepo.findAll();
 	}
 
+	
 	@Override
-	public Admin addAdmin(Admin admin) {
-
-		return adminrepo.save(admin);
-
-	}
-
-	@Override
-	public Admin viewAdminById(Long adminId) {
-		Optional<Admin> admin = adminrepo.findById(adminId);
+	public Admin viewAdminById(Long mobile) {
+		Optional<Admin> admin = adminrepo.findById(mobile);
 		if (admin.isPresent()) {
 			return admin.get();
 
@@ -72,5 +77,23 @@ public class AdminServiceImpl implements IAdminService {
 	public List<Admin> viewAdmin() {
 		return adminrepo.findAll();
 	}
+
+	@Override
+	public Admin updateAdmin(Admin admin) {
+		
+			// TODO Auto-generated method stub
+
+			Optional<Admin> adm = adminrepo.findById(admin.getMobile());
+			
+			if(adm.isPresent()) {
+				return adminrepo.save(admin);
+			}
+			else {
+				return addAdmin(admin);
+			}
+		
+	}
+
+	
 
 }

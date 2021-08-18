@@ -58,11 +58,13 @@ class AdminControllerTest {
 	@Test
 	public void testPostExample() throws Exception {
 
-		User user = new User(8976543210L, "abc", "xyz", "Admin");
+//		User user = new User(8976543210L, "abc", "xyz", "Admin");
 		Admin admin = new Admin();
-		admin.setAdminName("abc");
-		admin.setAdminpassword("xyz");
-		admin.setUser(user);
+		admin.setUserName("abc");
+		admin.setPassword("xyz");
+		admin.setMobile(8976543210L);
+		admin.setAdminAddress("Kolkata");
+		
 
 		String inputInJson = this.mapToJson(admin);
 

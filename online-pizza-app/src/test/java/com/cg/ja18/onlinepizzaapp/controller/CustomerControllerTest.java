@@ -25,7 +25,6 @@ import com.cg.ja18.onlinepizzaapp.entity.Order;
 import com.cg.ja18.onlinepizzaapp.entity.Pizza;
 import com.cg.ja18.onlinepizzaapp.entity.PizzaOrder;
 import com.cg.ja18.onlinepizzaapp.entity.User;
-import com.cg.ja18.onlinepizzaapp.repository.ILoginRepository;
 import com.cg.ja18.onlinepizzaapp.service.ICustomerService;
 import com.cg.ja18.onlinepizzaapp.service.IOrderService;
 import com.cg.ja18.onlinepizzaapp.service.IPizzaService;
@@ -44,8 +43,6 @@ public class CustomerControllerTest {
 	@MockBean
 	private IPizzaService pservice;
 
-	@MockBean
-	private ILoginRepository userrepo;
 
 	@Test
 	public void SavingCustomerControllerTest() throws Exception {
@@ -58,7 +55,7 @@ public class CustomerControllerTest {
 		Order order = Order.builder().orderType("Online").orderDescription("Add oregano").orderList(List.of(pizzaorder))
 				.coupon(coupon).build();
 		Customer customer = Customer.builder().customerName("ABC").customerAddress("Kolkata").customerEmail("abc@60")
-				.userName("abc@gmail.com").password("abc@60").build();
+				.build();
 
 		Mockito.when(cservice.addCustomer(Mockito.any(Customer.class))).thenReturn(customer);
 

@@ -1,14 +1,11 @@
 package com.cg.ja18.onlinepizzaapp.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,9 +18,8 @@ import com.cg.ja18.onlinepizzaapp.entity.Order;
 import com.cg.ja18.onlinepizzaapp.service.ICustomerService;
 import com.cg.ja18.onlinepizzaapp.service.IPizzaService;
 import com.cg.ja18.onlinepizzaapp.entity.Pizza;
-import com.cg.ja18.onlinepizzaapp.entity.User;
-import com.cg.ja18.onlinepizzaapp.repository.ILoginRepository;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class CustomerController {
 
@@ -33,22 +29,17 @@ public class CustomerController {
 	@Autowired
 	private IPizzaService pizzaService;
 
-	@Autowired
-	private ILoginRepository userRepo;
+//	@Autowired
+//	private ILoginRepository userRepo;
 
 	@PostMapping("/saveCustomer")
 	public Customer addCustomer(@Valid @RequestBody Customer customer) {
-		for (User user : userRepo.findAll()) {
-			if (customer.getUser().getMobile() == user.getMobile()) {
-				System.out.print("user already registered.");
-			}
-		}
 		return custService.addCustomer(customer);
 	}
 
-	@PutMapping("/updateCustomer/{customerId}")
-	public Customer updateCustomer(@PathVariable("customerId") Long customerId, @RequestBody Customer customer) {
-		return custService.updateCustomer(customerId, customer);
+	@PutMapping("/updateCustomer")
+	public Customer updateCustomer(@RequestBody Customer customer) {
+		return custService.updateCustomer(customer);
 	}
 
 	@GetMapping("/viewPizza")
@@ -57,10 +48,10 @@ public class CustomerController {
 
 	}
 
-	@GetMapping("/viewOrdersOrdered/{customerId}")
-	public List<Order> viewOrdersOfSingleCustomer(@PathVariable Long customerId) {
+	@GetMapping("/viewOrdersOrdered/{mobile}")
+	public List<Order> viewOrdersOfSingleCustomer(@PathVariable Long mobile) {
 
-		return custService.viewOrdersByCustomer(customerId);
+		return custService.viewOrdersByCustomer(mobile);
 
 	}
 }

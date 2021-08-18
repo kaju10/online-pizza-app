@@ -28,13 +28,19 @@ class AdminServiceTest {
 
 	@MockBean
 	private IAdminRepository adminRepo;
+	
+	Admin admin = new Admin();
 
 	@BeforeEach
 	void setUp() throws Exception {
 
-		Admin admin1 = Admin.builder().adminId(1L).adminName("Aakash").adminpassword("Sky584%").build();
+		
+		admin.setMobile(8976543210L);
+		admin.setUserName("abc");
+		admin.setPassword("xyz");
+		admin.setAdminAddress("Kolkata");
 
-		Mockito.when(adminRepo.findById(1L)).thenReturn(Optional.of(admin1));
+		Mockito.when(adminRepo.findById(8976543210L)).thenReturn(Optional.of(admin));
 
 	}
 
@@ -42,8 +48,8 @@ class AdminServiceTest {
 	@DisplayName("testing the Admin by Id")
 	void fetchAdminByIdTest() {
 
-		Long adminId = 1L;
-		assertEquals(adminId, adminService.viewAdminById(adminId).getAdminId());
+		
+		assertEquals(admin, adminService.viewAdminById(8976543210L));
 
 	}
 

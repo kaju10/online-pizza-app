@@ -24,15 +24,43 @@ public class LoginController {
 	@Autowired
 	private ILoginService loginService;
 
-	@GetMapping("/Login/{mobile}/{password}")
-	public ResponseEntity<?> validateUser(@PathVariable("mobile") Long mobile,
+	@GetMapping("/CustomerLogin/{mobile}/{password}")
+	public ResponseEntity<?> checkCustomer(@PathVariable("mobile") Long mobile,
 			@PathVariable("password") String password) {
-		boolean value = loginService.validateUser(mobile, password);
-		System.out.println("inside controller" + value);
-		if (value == true) {
+		boolean value = loginService.validateCustomer(mobile, password);
+		if(value) {
 			return ResponseEntity.ok("Logged in");
-		} else
+		}
+		else {
 			return ResponseEntity.ok("Invalid Credentials");
+		}
+		
+	}
+	
+	@GetMapping("/AdminLogin/{mobile}/{password}")
+	public ResponseEntity<?> checkAdmin(@PathVariable("mobile") Long mobile,
+			@PathVariable("password") String password) {
+		boolean value = loginService.validateAdmin(mobile, password);
+		if(value) {
+			return ResponseEntity.ok("Logged in");
+		}
+		else {
+			return ResponseEntity.ok("Invalid Credentials");
+		}
+		
 	}
 
 }
+
+
+
+//@GetMapping("/Login/{mobile}/{password}")
+//public ResponseEntity<?> validateUser(@PathVariable("mobile") Long mobile,
+//		@PathVariable("password") String password) {
+//	boolean value = loginService.validateUser(mobile, password);
+//	System.out.println("inside controller" + value);
+//	if (value == true) {
+//		return ResponseEntity.ok("Logged in");
+//	} else
+//		return ResponseEntity.ok("Invalid Credentials");
+//}

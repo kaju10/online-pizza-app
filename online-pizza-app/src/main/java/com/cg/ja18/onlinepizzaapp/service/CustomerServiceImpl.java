@@ -3,6 +3,8 @@ package com.cg.ja18.onlinepizzaapp.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +12,8 @@ import com.cg.ja18.onlinepizzaapp.entity.Customer;
 import com.cg.ja18.onlinepizzaapp.entity.Order;
 import com.cg.ja18.onlinepizzaapp.entity.Pizza;
 import com.cg.ja18.onlinepizzaapp.entity.User;
+import com.cg.ja18.onlinepizzaapp.exceptions.CustomerAlreadyPresentException;
 import com.cg.ja18.onlinepizzaapp.repository.ICustomerRepository;
-import com.cg.ja18.onlinepizzaapp.repository.ILoginRepository;
 import com.cg.ja18.onlinepizzaapp.repository.IOrderRepository;
 import com.cg.ja18.onlinepizzaapp.repository.IPizzaRepository;
 
@@ -24,37 +26,56 @@ public class CustomerServiceImpl implements ICustomerService {
 	@Autowired
 	private IPizzaRepository pizzaRepo;
 
-	@Autowired
-	private ILoginRepository userRepo;
+//	@Autowired
+//	private ILoginRepository userRepo;
 
+	
 	@Override
 	public Customer addCustomer(Customer customer) {
 		// TODO Auto-generated method stub
-
-		return custRepo.save(customer);
+		Optional<Customer> cust = custRepo.findById(customer.getMobile());
+		if(cust.isPresent()) {
+			throw new CustomerAlreadyPresentException("Customer with mobile number " + customer.getMobile() + " is already registered");
+		}
+		else {
+			return custRepo.save(customer);
+		}	
 	}
+//	@Override
+//	public Customer addCustomer(Customer customer) {
+//		// TODO Auto-generated method stub
+//
+//		return custRepo.save(customer);
+//	}
 
 	@Override
-	public Customer updateCustomer(Long customerId, Customer customer) {
+	public Customer updateCustomer(Customer customer) {
 		// TODO Auto-generated method stub
 
-		Customer cust = custRepo.findById(customerId).get();
-
-		if (Objects.nonNull(customer.getCustomerName()) && !"".equalsIgnoreCase(customer.getCustomerName())) {
-			cust.setCustomerName(customer.getCustomerName());
+		Optional<Customer> cust = custRepo.findById(customer.getMobile());
+		
+		if(cust.isPresent()) {
+			return custRepo.save(customer);
+		}
+		else {
+			return addCustomer(customer);
 		}
 
+//		if (Objects.nonNull(customer.getCustomerName()) && !"".equalsIgnoreCase(customer.getCustomerName())) {
+//			cust.setCustomerName(customer.getCustomerName());
+//		}
+//
 //			if (Objects.nonNull(customer.getCustomerMobile()) ) {
 //				cust.setCustomerMobile(customer.getCustomerMobile());
 //			}
-		if (Objects.nonNull(customer.getCustomerAddress()) && !"".equalsIgnoreCase(customer.getCustomerAddress())) {
-			cust.setCustomerAddress(customer.getCustomerAddress());
-		}
-		if (Objects.nonNull(customer.getCustomerEmail()) && !"".equalsIgnoreCase(customer.getCustomerEmail())) {
-			cust.setCustomerEmail(customer.getCustomerEmail());
-		}
-
-		return custRepo.save(cust);
+//		if (Objects.nonNull(customer.getCustomerAddress()) && !"".equalsIgnoreCase(customer.getCustomerAddress())) {
+//			cust.setCustomerAddress(customer.getCustomerAddress());
+//		}
+//		if (Objects.nonNull(customer.getCustomerEmail()) && !"".equalsIgnoreCase(customer.getCustomerEmail())) {
+//			cust.setCustomerEmail(customer.getCustomerEmail());
+//		}
+//
+//		return custRepo.save(cust);
 	}
 
 	@Override
@@ -65,11 +86,13 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
-	public List<Order> viewOrdersByCustomer(Long customerId) {
+	public List<Order> viewOrdersByCustomer(Long mobile) {
 		// TODO Auto-generated method stub
 
-		return custRepo.findById(customerId).get().getOrder();
+		return custRepo.findById(mobile).get().getOrder();
 
 	}
+
+	
 
 }

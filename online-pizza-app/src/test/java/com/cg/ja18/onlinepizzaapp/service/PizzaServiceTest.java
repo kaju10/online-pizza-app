@@ -37,7 +37,7 @@ public class PizzaServiceTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		pizza = Pizza.builder().pizzaId(1).pizzaType("Veg").pizzaName("Paneer Pizza").size("Large")
+		pizza = Pizza.builder().pizzaId(1).pizzaType("Veg").pizzaName("Paneer Pizza").pizzaSize("Large")
 				.pizzaDescription("its a peppy paneer pizza").pizzaCost(150.00).build();
 
 		Mockito.when(pizzaRepository.save(pizza)).thenReturn(pizza);

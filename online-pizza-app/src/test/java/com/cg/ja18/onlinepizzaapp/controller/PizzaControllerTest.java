@@ -41,7 +41,7 @@ public class PizzaControllerTest {
 		// pizza.setPizzaId(100);
 		pizza.setPizzaType("Veg");
 		pizza.setPizzaName("Paneer Pizza");
-		pizza.setSize("Large");
+		pizza.setPizzaSize("Large");
 		pizza.setPizzaDescription("its a peppy paneer pizza");
 		pizza.setPizzaCost(150.00);
 

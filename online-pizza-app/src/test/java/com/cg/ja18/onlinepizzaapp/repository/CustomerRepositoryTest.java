@@ -17,18 +17,22 @@ class CustomerRepositoryTest {
 	@Autowired
 	private ICustomerRepository custRepo;
 
-	Customer cust;
+	Customer cust= new Customer();
 
 	@BeforeEach
 	void setUp() throws Exception {
 
-		cust = Customer.builder().customerId(1L).customerName("ABC").customerAddress("Kolkata")
-				.customerEmail("abc@gmail.com").userName("abc60").password("abc@60").build();
+		cust.setMobile(9876543210L);
+		cust.setUserName("abc");
+		cust.setPassword("xyz");
+		cust.setCustomerAddress("Kolkata");
+		cust.setCustomerEmail("abc@def.com");
+		cust.setCustomerName("abcxyz");
 	}
 
 	@Test
 	void addMethodtest() {
-		assertEquals(custRepo.save(cust), cust);
+		assertEquals(custRepo.save(cust).getCustomerName(), cust.getCustomerName());
 	}
 
 }

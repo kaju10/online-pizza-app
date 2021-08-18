@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,10 +27,15 @@ public class AdminController {
 	@Autowired
 	private IAdminService adminService;
 
-	@GetMapping("/customer/{customerId}")
-	public Customer viewCustomerByCustomerId(@PathVariable("customerId") Long customerId) {
-		return adminService.viewCustomerById(customerId);
+	@GetMapping("/customer/{mobile}")
+	public Customer viewCustomerByCustomerId(@PathVariable("mobile") Long mobile) {
+		return adminService.viewCustomerById(mobile);
 
+	}
+	
+	@PutMapping("/updateAdmin")
+	public Admin updateAdmin(@RequestBody Admin admin) {
+		return adminService.updateAdmin(admin);
 	}
 
 	@PostMapping("/addPizza")
@@ -50,6 +56,11 @@ public class AdminController {
 
 	@GetMapping("/viewAdmin")
 	public List<Admin> viewAdmin() {
+		return adminService.viewAdmin();
+	}
+	
+	@GetMapping("/viewAdmin/{mobile}")
+	public List<Admin> viewAdminById(@PathVariable("mobile") Long mobile) {
 		return adminService.viewAdmin();
 	}
 

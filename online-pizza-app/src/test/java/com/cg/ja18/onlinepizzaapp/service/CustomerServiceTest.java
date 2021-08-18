@@ -18,7 +18,6 @@ import com.cg.ja18.onlinepizzaapp.entity.Admin;
 import com.cg.ja18.onlinepizzaapp.entity.Customer;
 import com.cg.ja18.onlinepizzaapp.entity.User;
 import com.cg.ja18.onlinepizzaapp.repository.ICustomerRepository;
-import com.cg.ja18.onlinepizzaapp.repository.ILoginRepository;
 
 @SpringBootTest
 class CustomerServiceTest {
@@ -34,16 +33,16 @@ class CustomerServiceTest {
 	@BeforeEach
 	void setUp() throws Exception {
 
-		User uss = new User(1L, "abc60", "abc@60", "customer");
-		cust = Customer.builder().customerId(1L).customerName("ABC").customerAddress("Kolkata")
-				.customerEmail("abc@gmail.com").userName("abc60").password("abc@60").user(uss).build();
-
+		
+		cust = Customer.builder().customerName("ABC").customerAddress("Kolkata")
+				.customerEmail("abc@gmail.com").build();
+		Mockito.when(custRepo.save(cust)).thenReturn(cust);
 	}
 
 	@Test
 	void addCustomerTest() {
 
-		Mockito.when(custRepo.save(cust)).thenReturn(cust);
+		
 		assertEquals(cust, custService.addCustomer(cust));
 
 	}
