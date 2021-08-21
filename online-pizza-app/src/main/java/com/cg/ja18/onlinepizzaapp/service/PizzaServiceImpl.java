@@ -79,9 +79,8 @@ public class PizzaServiceImpl implements IPizzaService{
 		// TODO Auto-generated method stub
 		List<Pizza> list = new ArrayList<>();
 		pizzaRepository.findAll().forEach(list::add);
-		list.stream().filter(i->i.getPizzaCost()>minCost && i.getPizzaCost()<maxCost)
-		.collect(Collectors.toList());
-		return list;
+		return list.stream().filter(i->i.getPizzaCost()>minCost && i.getPizzaCost()<maxCost)
+				.collect(Collectors.toList());
 	}
 
 	@Override

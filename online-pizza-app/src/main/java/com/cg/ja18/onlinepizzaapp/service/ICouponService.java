@@ -18,4 +18,7 @@ public interface ICouponService {
 	List<Coupon> viewCoupans() throws CouponIdNotFoundException;
 
 	Coupon viewCoupan(Long coupanId)throws CouponIdNotFoundException;
+	
+	Coupon viewCouponByName(String couponName) throws CouponIdNotFoundException;
+	
 }

@@ -32,7 +32,7 @@ public class LoginServiceImpl implements ILoginService {
 	public boolean validateCustomer(Long mobile, String password) {
 		// TODO Auto-generated method stub
 		Customer cust = custRepo.findById(mobile).get();
-		if (cust.getPassword() == password) {
+		if (cust.getPassword().equals(password)) {
 			return true;
 		} else {
 			return false;
@@ -43,7 +43,7 @@ public class LoginServiceImpl implements ILoginService {
 	public boolean validateAdmin(Long mobile, String password) {
 		// TODO Auto-generated method stub
 		Admin adm = adminRepo.findById(mobile).get();
-		if (adm.getPassword() == password) {
+		if (adm.getPassword().equals(password)) {
 			return true;
 		} else {
 			return false;

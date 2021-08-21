@@ -67,4 +67,24 @@ public class CouponServiceImpl implements ICouponService {
 			throw new CouponIdNotFoundException("Coupon is not available");
 		}
 	}
+
+	@Override
+	public Coupon viewCouponByName(String couponName) throws CouponIdNotFoundException {
+		// TODO Auto-generated method stub
+		List<Coupon> list= new ArrayList<Coupon>();
+		list= repo.findAll();
+		Long d = 0L;
+		for(Coupon c : list) {
+			c.getCouponDescription().equalsIgnoreCase(couponName);
+			d=c.getCouponId();
+			break;
+		}
+		Optional<Coupon> rcoupon = repo.findById(d);
+		if (rcoupon.isPresent()) {
+			return rcoupon.get();
+		} else {
+			throw new CouponIdNotFoundException("Coupon is not available");
+		}
+		
+	}
 }

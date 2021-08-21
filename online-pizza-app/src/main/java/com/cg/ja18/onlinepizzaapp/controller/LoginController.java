@@ -25,7 +25,7 @@ public class LoginController {
 	private ILoginService loginService;
 
 	@GetMapping("/CustomerLogin/{mobile}/{password}")
-	public ResponseEntity<?> checkCustomer(@PathVariable("mobile") Long mobile,
+	public ResponseEntity<?> checkCustomer(@PathVariable Long mobile,
 			@PathVariable("password") String password) {
 		boolean value = loginService.validateCustomer(mobile, password);
 		if(value) {
