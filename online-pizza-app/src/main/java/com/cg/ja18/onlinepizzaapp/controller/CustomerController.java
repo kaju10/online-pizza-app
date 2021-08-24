@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.ja18.onlinepizzaapp.entity.Admin;
 import com.cg.ja18.onlinepizzaapp.entity.Customer;
 import com.cg.ja18.onlinepizzaapp.entity.Order;
 import com.cg.ja18.onlinepizzaapp.service.ICustomerService;
@@ -45,7 +46,6 @@ public class CustomerController {
 	@GetMapping("/viewPizza")
 	public List<Pizza> viewPizzaList() {
 		return pizzaService.viewPizzaList();
-
 	}
 
 	@GetMapping("/viewOrdersOrdered/{mobile}")
@@ -53,5 +53,10 @@ public class CustomerController {
 
 		return custService.viewOrdersByCustomer(mobile);
 
+	}
+	
+	@GetMapping("/viewCustomer/{mobile}")
+	public Customer viewCustomerById(@PathVariable("mobile") Long mobile) {
+		return custService.viewCustomerById(mobile);
 	}
 }

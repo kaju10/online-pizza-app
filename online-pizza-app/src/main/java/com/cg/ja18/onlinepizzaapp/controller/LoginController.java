@@ -25,27 +25,27 @@ public class LoginController {
 	private ILoginService loginService;
 
 	@GetMapping("/CustomerLogin/{mobile}/{password}")
-	public ResponseEntity<?> checkCustomer(@PathVariable Long mobile,
+	public String checkCustomer(@PathVariable Long mobile,
 			@PathVariable("password") String password) {
 		boolean value = loginService.validateCustomer(mobile, password);
 		if(value) {
-			return ResponseEntity.ok("Logged in");
+			return "Logged in";
 		}
 		else {
-			return ResponseEntity.ok("Invalid Credentials");
+			return "Invalid Credentials";
 		}
 		
 	}
 	
 	@GetMapping("/AdminLogin/{mobile}/{password}")
-	public ResponseEntity<?> checkAdmin(@PathVariable("mobile") Long mobile,
+	public String checkAdmin(@PathVariable("mobile") Long mobile,
 			@PathVariable("password") String password) {
 		boolean value = loginService.validateAdmin(mobile, password);
 		if(value) {
-			return ResponseEntity.ok("Logged in");
+			return "Logged in";
 		}
 		else {
-			return ResponseEntity.ok("Invalid Credentials");
+			return "Invalid Credentials";
 		}
 		
 	}

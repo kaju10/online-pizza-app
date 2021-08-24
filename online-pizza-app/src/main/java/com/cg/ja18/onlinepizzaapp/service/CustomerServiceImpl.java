@@ -8,11 +8,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.ja18.onlinepizzaapp.entity.Admin;
 import com.cg.ja18.onlinepizzaapp.entity.Customer;
 import com.cg.ja18.onlinepizzaapp.entity.Order;
 import com.cg.ja18.onlinepizzaapp.entity.Pizza;
 import com.cg.ja18.onlinepizzaapp.entity.User;
+import com.cg.ja18.onlinepizzaapp.exceptions.AdminIdNotFoundException;
 import com.cg.ja18.onlinepizzaapp.exceptions.CustomerAlreadyPresentException;
+import com.cg.ja18.onlinepizzaapp.exceptions.CustomerIdNotFoundException;
 import com.cg.ja18.onlinepizzaapp.repository.ICustomerRepository;
 import com.cg.ja18.onlinepizzaapp.repository.IOrderRepository;
 import com.cg.ja18.onlinepizzaapp.repository.IPizzaRepository;
@@ -91,6 +94,17 @@ public class CustomerServiceImpl implements ICustomerService {
 
 		return custRepo.findById(mobile).get().getOrder();
 
+	}
+
+	@Override
+	public Customer viewCustomerById(Long mobile) {
+		Optional<Customer> cust = custRepo.findById(mobile);
+		if (cust.isPresent()) {
+			return cust.get();
+
+		} else {
+			throw new CustomerIdNotFoundException("Customer id is not available");
+		}
 	}
 
 	

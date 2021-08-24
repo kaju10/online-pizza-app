@@ -21,5 +21,7 @@ public interface ICustomerService {
 	 List<Pizza> viewPizzaList();
 
 	 List<Order> viewOrdersByCustomer(Long mobile);
+	 
+	 Customer viewCustomerById(Long mobile);
 
 }
