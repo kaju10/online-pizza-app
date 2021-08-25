@@ -52,13 +52,14 @@ public class PizzaServiceImpl implements IPizzaService{
 		}
 	}
 
-	@Override
-	public Pizza viewPizza(int pizzaId) throws PizzaIdNotFoundException {
+	public List<Pizza> viewPizza(int pizzaId) throws PizzaIdNotFoundException {
 		// TODO Auto-generated method stub
 		Optional<Pizza> op = pizzaRepository.findById(pizzaId);
+		List<Pizza> result=new ArrayList<>();
 	    if(op.isPresent())
 	    {
-	    	return op.get();
+	    	result.add(op.get());
+	    	return result;
 	    }
 	    else
 	    {

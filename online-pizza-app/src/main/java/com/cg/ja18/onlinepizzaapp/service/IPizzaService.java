@@ -16,7 +16,7 @@ public interface IPizzaService {
 
 	public Pizza deletePizza(int pizzaId) throws PizzaIdNotFoundException;
 
-	public Pizza viewPizza(int pizzaId) throws PizzaIdNotFoundException;
+	public List<Pizza> viewPizza(int pizzaId) throws PizzaIdNotFoundException;
 
 	public List<Pizza> viewPizzaList();
 

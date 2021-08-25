@@ -1,5 +1,6 @@
 package com.cg.ja18.onlinepizzaapp.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -92,6 +93,17 @@ public class AdminServiceImpl implements IAdminService {
 				return addAdmin(admin);
 			}
 		
+	}
+	
+	@Override
+	public List<Customer> viewListCustomerById(Long mobile) {
+		Optional<Customer> customer = custRepo.findById(mobile);
+		if (!customer.isPresent()) {
+			throw new CustomerIdNotFoundException("customer id is not available");
+		}
+		 List<Customer> resultlist=new ArrayList<Customer>();
+		 resultlist.add(customer.get());
+		return resultlist;
 	}
 
 	

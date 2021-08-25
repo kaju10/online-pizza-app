@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import com.cg.ja18.onlinepizzaapp.entity.Pizza;
 import com.cg.ja18.onlinepizzaapp.service.IAdminService;
 import com.cg.ja18.onlinepizzaapp.service.IPizzaService;
 
+@CrossOrigin("*")
 @RestController
 public class AdminController {
 
@@ -30,6 +32,12 @@ public class AdminController {
 	@GetMapping("/customer/{mobile}")
 	public Customer viewCustomerByCustomerId(@PathVariable("mobile") Long mobile) {
 		return adminService.viewCustomerById(mobile);
+
+	}
+	
+	@GetMapping("/listcustomer/{mobile}")
+	public List<Customer> viewListCustomerByCustomerId(@PathVariable("mobile") Long mobile) {
+		return adminService.viewListCustomerById(mobile);
 
 	}
 	

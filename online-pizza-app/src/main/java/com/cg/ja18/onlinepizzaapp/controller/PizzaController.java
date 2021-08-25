@@ -44,7 +44,7 @@ public class PizzaController {
 	}
 
 	@GetMapping("/viewpizza/{id}")
-	public Pizza viewPizza(@PathVariable("id") int id) throws PizzaIdNotFoundException {
+	public List<Pizza> viewPizza(@PathVariable("id") int id) throws PizzaIdNotFoundException {
 		return pizzaService.viewPizza(id);
 	}
 

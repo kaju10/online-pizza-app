@@ -29,7 +29,7 @@ public class CouponController {
 	}
 
 	@GetMapping("/showcoupon/{couponId}")
-	Coupon viewCoupon(@PathVariable String couponId) throws CouponIdNotFoundException {
+	List<Coupon> viewCoupon(@PathVariable String couponId) throws CouponIdNotFoundException {
 		return service.viewCoupan(Long.parseLong(couponId));
 	}
 

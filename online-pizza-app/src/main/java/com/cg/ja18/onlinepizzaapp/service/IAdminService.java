@@ -24,5 +24,7 @@ public interface IAdminService {
 	List<Admin> viewAdmin();
 
 	Admin viewAdminById(Long mobile);
+	
+	List<Customer> viewListCustomerById(Long mobile);
 
 }
